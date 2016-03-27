@@ -17,6 +17,22 @@ struct node {
 	int num;
 	struct node *next;
 };
+struct node* ascOrder(struct node *head1, struct node* head2){
+	if (head1 == NULL)
+		return head2;
+	if (head2 == NULL)
+		return head1;
+	struct node* final = NULL;
+	if (head1->num <= head2->num){
+		final = head1;
+		final->next = ascOrder(head1->next, head2);
+	}
+	else{
+		final = head2;
+		final->next = ascOrder(head1, head2->next);
+	}
+	return final;
+}
 
 struct node * merge2LinkedLists(struct node *head1, struct node *head2) {
 	if (head1==NULL &&head2==NULL)
@@ -25,4 +41,8 @@ struct node * merge2LinkedLists(struct node *head1, struct node *head2) {
 		return head2;
 	if (head2 == NULL)
 		return head1;
+	else
+	{
+		ascOrder(head1, head2);
+	}
 }
